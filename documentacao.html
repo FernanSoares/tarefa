@@ -1,0 +1,37 @@
+# Projeto de Autenticação de Usuários Este projeto fornece um sistema simples de
+autenticação de usuários, baseado em Java, que interage com um banco de dados
+MySQL. --- ## Estrutura do Projeto A principal classe do projeto é a classe
+`User`, responsável por autenticar usuários e gerenciar a conexão com o banco de
+dados. ### Métodos Principais 1. **`conectarBD()`** Estabelece uma conexão com o
+banco de dados e retorna o objeto `Connection`. 2. **`verificarUsuario(String
+login, String senha)`** Verifica as credenciais de login e senha fornecidas.
+Retorna `true` para credenciais válidas e `false` para inválidas. ### Variáveis
+da Classe - **`nome`**: Armazena o nome do usuário. - **`result`**: Armazena o
+resultado da verificação das credenciais. --- ## Problemas Identificados e
+Melhorias Recomendadas ### 1. **Conexão com o Banco de Dados** **Problemas
+Identificados:** - A variável `conn` é inicializada como `null` sem verificação
+adequada, o que pode causar exceções. - Credenciais de acesso estão hardcoded no
+código, expondo informações sensíveis. **Recomendações:** - Verifique se `conn`
+foi corretamente inicializada antes de usá-la. - Armazene credenciais em
+variáveis de ambiente ou arquivos de configuração protegidos. --- ### 2.
+**Consulta SQL** **Problema Identificado:** - Uso de concatenação de strings na
+construção de consultas SQL, vulnerável a SQL Injection. **Recomendação:** -
+Utilize *prepared statements* ou consultas parametrizadas para aumentar a
+segurança. --- ### 3. **Tratamento de Exceções** **Problemas Identificados:** -
+O tratamento de exceções é superficial e não fornece detalhes úteis para
+depuração. **Recomendações:** - Implemente um tratamento robusto, com logs
+detalhados para facilitar a análise de erros. --- ### 4. **Nomenclatura e
+Formatação** **Problemas Identificados:** - Nomes de variáveis e métodos pouco
+descritivos dificultam a leitura do código. - Problemas de indentação e
+formatação reduzem a legibilidade. **Recomendações:** - Use nomes claros e
+consistentes. - Aplique um padrão de formatação para melhorar a manutenção do
+código. --- ## Complexidade Ciclomática e Base de Caminhos **Fórmula
+Utilizada:** `V(G) = E - N + 2` **Dados do Grafo:** - **E (arestas):** 3 - **N
+(nodos):** 3 **Cálculo:** `V(G) = 3 - 3 + 2 = 2` ### Base de Caminhos -
+`conectarBD() -> verificarUsuario(login, senha) -> return result` -
+`verificarUsuario(login, senha) -> return result` --- ## Uso Para usar a classe
+`User`, crie uma instância e chame o método `verificarUsuario()` com as
+credenciais do usuário. ### Exemplo: ```java User user = new User(); boolean
+isValid = user.verificarUsuario("meulogin", "minhasenha"); if (isValid) {
+System.out.println("Bem-vindo, " + user.nome + "!"); } else {
+System.out.println("Login ou senha inválidos."); }
